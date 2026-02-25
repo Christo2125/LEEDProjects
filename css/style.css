@@ -1,0 +1,93 @@
+/* CSS Variables & Theme Definitions */
+:root {
+  --primary-color: #607966; /* Muted Green */
+  --secondary-color: #2c302f; /* Dark Charcoal */
+  --accent-color: #393e3a; /* Slate Gray */
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+body,
+p,
+span,
+button,
+a,
+.font-body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+/* Base Styles */
+body {
+  background-color: var(--secondary-color);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+section {
+  padding: 100px 0;
+}
+
+/* Custom Utilities */
+.bg-theme-dark {
+  background-color: var(--secondary-color);
+}
+.bg-theme-green {
+  background-color: var(--primary-color);
+}
+.text-theme-green {
+  color: var(--primary-color);
+}
+
+.btn-primary-theme {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 0;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary-theme:hover {
+  background-color: #4d6152;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary-theme {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 12px 30px;
+  border-radius: 0;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-secondary-theme:hover {
+  background-color: white;
+  color: var(--secondary-color);
+}
+
+/* Glassmorphism Classes */
+.glass-header {
+  background: rgba(44, 48, 47, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
