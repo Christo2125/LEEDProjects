@@ -1,93 +1,171 @@
-/* CSS Variables & Theme Definitions */
+/* ============================================================
+   LEED PROJECTS — Custom Theme Stylesheet
+   Colors: #2C302F (dark), #607966 (green), #393E3A (slate)
+   Fonts:  Cormorant Garamond (headings), Montserrat (body)
+   ============================================================ */
+
+/* --- CSS Variables --- */
 :root {
-  --primary-color: #607966; /* Muted Green */
-  --secondary-color: #2c302f; /* Dark Charcoal */
-  --accent-color: #393e3a; /* Slate Gray */
-  --text-light: #f8f9fa;
-  --text-dark: #212529;
-  --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --primary-color:    #607966;
+    --secondary-color:  #2C302F;
+    --accent-color:     #393E3A;
+    --text-light:       #F8F9FA;
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-.font-heading {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
+/* --- Typography --- */
+h1, h2, h3, h4, h5, .font-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    line-height: 1.15;
 }
 
-body,
-p,
-span,
-button,
-a,
-.font-body {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+body, p, span, button, a, label, input, textarea, .font-body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-/* Base Styles */
+/* --- Base --- */
 body {
-  background-color: var(--secondary-color);
-  color: var(--text-light);
-  overflow-x: hidden;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    overflow-x: hidden;
 }
 
 section {
-  padding: 100px 0;
+    padding: 100px 0;
 }
 
-/* Custom Utilities */
-.bg-theme-dark {
-  background-color: var(--secondary-color);
-}
-.bg-theme-green {
-  background-color: var(--primary-color);
-}
-.text-theme-green {
-  color: var(--primary-color);
-}
+/* --- Utility Classes --- */
+.bg-theme-dark  { background-color: var(--secondary-color) !important; }
+.bg-theme-green { background-color: var(--primary-color)   !important; }
+.text-theme-green { color: var(--primary-color) !important; }
 
+/* --- Buttons --- */
 .btn-primary-theme {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 0;
-  font-weight: 500;
-  transition: var(--transition-smooth);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-smooth);
+    display: inline-block;
 }
-
 .btn-primary-theme:hover {
-  background-color: #4d6152;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: #4d6152;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
 }
 
 .btn-secondary-theme {
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-  padding: 12px 30px;
-  border-radius: 0;
-  font-weight: 500;
-  transition: var(--transition-smooth);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.6);
+    padding: 12px 32px;
+    border-radius: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-smooth);
+    display: inline-block;
 }
-
 .btn-secondary-theme:hover {
-  background-color: white;
-  color: var(--secondary-color);
+    background-color: #fff;
+    color: var(--secondary-color);
 }
 
-/* Glassmorphism Classes */
+/* --- Sticky Glassmorphism Header --- */
+.navbar {
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
 .glass-header {
-  background: rgba(44, 48, 47, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(44, 48, 47, 0.9) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* --- Navbar Link Hover --- */
+.navbar-nav .nav-link {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+}
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* --- Service Cards hover --- */
+[style*="border: 1px solid rgba(255,255,255,0.05)"]:hover,
+.scope-card:hover {
+    background: rgba(96, 121, 102, 0.08) !important;
+    border-color: rgba(96, 121, 102, 0.3) !important;
+    transition: var(--transition-smooth);
+}
+
+/* --- Contact Form Inputs --- */
+.contact-input {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    padding: 12px 16px;
+    transition: border-color 0.3s ease;
+}
+.contact-input::placeholder {
+    color: rgba(255,255,255,0.35);
+}
+.contact-input:focus {
+    outline: none;
+    box-shadow: none !important;
+    border-color: var(--primary-color) !important;
+    background: rgba(255,255,255,0.08) !important;
+}
+
+/* --- Scroll Fade-in Animation --- */
+.leed-fade {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.leed-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive Tweaks --- */
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    h1.display-3 { font-size: clamp(2rem, 8vw, 3.5rem); }
+    h2.display-5, h2.display-4 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+    .btn-primary-theme, .btn-secondary-theme { padding: 10px 22px; font-size: 0.72rem; }
+}
+
+@media (max-width: 480px) {
+    section { padding: 48px 0; }
+    h1.display-3 { font-size: clamp(1.6rem, 9vw, 2.8rem); }
+    .lead { font-size: 0.9rem; }
 }
