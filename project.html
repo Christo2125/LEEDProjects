@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEED PROJECTS | Intelligent Office Fit-Out & Furniture Solutions</title>
-    <meta name="description" content="LEED Projects delivers technically sound, cost-effective corporate interior fit-out and modular furniture solutions across South India.">
-
+    <title>Project Details | LEED PROJECTS</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,38 +13,43 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .project-hero {
+            padding: 120px 0 60px;
+            background: #1a1c1b;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .project-detail-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            margin-top: -50px;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-theme-dark text-white">
 
     <div id="header-root"></div>
-    <main>
-        <div id="hero-root"></div>
-        <div id="about-root"></div>
-        <div id="services-root"></div>
-        <div id="execution-root"></div>
-        <div id="scope-root"></div>
-        <div id="workstations-root"></div>
-        <div id="chairs-root"></div>
-        <div id="softseating-root"></div>
-        <div id="factory-root"></div>
-        <div id="accessories-root"></div>
-        <div id="imported-root"></div>
-        <div id="clients-root"></div>
-        <div id="whychoose-root"></div>
-        <div id="contact-root"></div>
+    
+    <main id="project-content">
+        <!-- Project content will be loaded here -->
+        <div class="container py-5 text-center">
+            <div class="spinner-border text-theme-green" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     </main>
+
     <div id="footer-root"></div>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/project-loader.js"></script>
 </body>
 </html>

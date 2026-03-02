@@ -1,10 +1,13 @@
 // Component Loader Utility
 async function loadComponent(elementId, filePath) {
+  const element = document.getElementById(elementId);
+  if (!element) return; // Skip if element doesn't exist on this page
+
   try {
     const response = await fetch(filePath);
     if (response.ok) {
       const content = await response.text();
-      document.getElementById(elementId).innerHTML = content;
+      element.innerHTML = content;
     } else {
       console.error(`Failed to load component: ${filePath}`);
     }
@@ -75,4 +78,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       el.classList.add("leed-fade");
       observer.observe(el);
     });
+
+  // --- Scroll to hash if present (for navigation from project.html) ---
+  if (window.location.hash) {
+    setTimeout(() => {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 500); // Wait for components to render
+  }
 });
