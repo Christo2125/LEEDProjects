@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadComponent("header-root", "components/header.html");
   await loadComponent("hero-root", "components/hero.html");
   await loadComponent("about-root", "components/about.html");
+  initAboutCarousel();
   await loadComponent("services-root", "components/services.html");
   await loadComponent("execution-root", "components/execution.html");
   await loadComponent("scope-root", "components/scope.html");
@@ -78,14 +79,84 @@ document.addEventListener("DOMContentLoaded", async () => {
       el.classList.add("leed-fade");
       observer.observe(el);
     });
-
-  // --- Scroll to hash if present (for navigation from project.html) ---
-  if (window.location.hash) {
-    setTimeout(() => {
-      const target = document.querySelector(window.location.hash);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 500); // Wait for components to render
-  }
 });
+
+/**
+ * About Section Carousel Logic
+ */
+function initAboutCarousel() {
+  const section = document.querySelector(".about-carousel-section");
+  if (!section) return;
+
+  const wrapper = section.querySelector(".about-carousel-wrapper");
+  const slides = section.querySelectorAll(".about-slide");
+  const prevBtn = section.querySelector(".about-prev");
+  const nextBtn = section.querySelector(".about-next");
+  const indicators = section.querySelectorAll(".indicator");
+
+  let currentIndex = 0;
+  const slideCount = slides.length;
+  let autoplayInterval;
+
+  function updateCarousel() {
+    // Move wrapper
+    wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Update active classes for transition effects
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("active", index === currentIndex);
+    });
+
+    // Update indicators
+    indicators.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+    updateCarousel();
+  }
+
+  function goToSlide(index) {
+    currentIndex = index;
+    updateCarousel();
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayInterval = setInterval(nextSlide, 6000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+    }
+  }
+
+  // Event Listeners
+  nextBtn.addEventListener("click", () => {
+    nextSlide();
+    startAutoplay(); // Reset interval on manual click
+  });
+
+  prevBtn.addEventListener("click", () => {
+    prevSlide();
+    startAutoplay();
+  });
+
+  indicators.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      startAutoplay();
+    });
+  });
+
+  // Start initial autoplay
+  startAutoplay();
+}

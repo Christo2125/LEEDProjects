@@ -170,47 +170,124 @@ section {
     .lead { font-size: 0.9rem; }
 }
 
-/* --- About Section Background Scrolling --- */
-.about-section {
+/* --- About Section Interactive Carousel --- */
+.about-carousel-section {
     position: relative;
-    overflow: hidden;
+    padding: 0 !important;
+    background: #fff;
+    min-height: 600px;
 }
 
-.about-bg-scroller {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%; /* Enough to fit images twice for seamless loop */
-    height: 100%;
-    z-index: 0;
-    opacity: 0.52; /* Low opacity for readability */
-    pointer-events: none;
-}
-
-.about-scroller-track {
+.about-carousel-wrapper {
     display: flex;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
     height: 100%;
-    width: max-content;
-    animation: scrollBackground 60s linear infinite;
 }
 
-.about-scroller-track img {
-    height: 100%;
-    width: auto;
-    object-fit: cover;
-    flex-shrink: 0;
+.about-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    opacity: 0;
+    transition: opacity 0.8s ease;
 }
 
-@keyframes scrollBackground {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%); /* Scroll half way (the first set of images) */
-    }
+.about-slide.active {
+    opacity: 1;
 }
 
-.about-section .container {
+.about-text-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.about-text-content h2 {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.about-text-content p {
+    color: #333;
+    font-weight: 500;
+}
+
+.about-image-frame {
+    height: 600px;
+    overflow: hidden;
     position: relative;
-    z-index: 2;
+}
+
+.about-image-frame img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+}
+
+.about-slide.active .about-image-frame img {
+    transform: scale(1.05);
+}
+
+/* --- Carousel Navigation --- */
+.about-nav {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+}
+
+.about-prev, .about-next {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.1);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+}
+
+.about-prev:hover, .about-next:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+/* --- Carousel Indicators --- */
+.about-indicators {
+    position: absolute;
+    bottom: 58px;
+    left: 220px;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 30px;
+    height: 2px;
+    background: rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--primary-color);
+}
+
+/* --- Responsive Carousel --- */
+@media (max-width: 991px) {
+    .about-carousel-section { min-height: auto; }
+    .about-slide { min-height: auto; flex-direction: column; }
+    .about-image-frame { height: 400px; }
+    .about-nav { left: 50%; transform: translateX(-50%); bottom: 20px; }
+    .about-indicators { display: none; }
+    .about-text-content { padding: 40px 20px 80px 20px !important; text-align: center; }
 }
