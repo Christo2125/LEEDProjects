@@ -169,3 +169,48 @@ section {
     h1.display-3 { font-size: clamp(1.6rem, 9vw, 2.8rem); }
     .lead { font-size: 0.9rem; }
 }
+
+/* --- About Section Background Scrolling --- */
+.about-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-bg-scroller {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Enough to fit images twice for seamless loop */
+    height: 100%;
+    z-index: 0;
+    opacity: 0.52; /* Low opacity for readability */
+    pointer-events: none;
+}
+
+.about-scroller-track {
+    display: flex;
+    height: 100%;
+    width: max-content;
+    animation: scrollBackground 60s linear infinite;
+}
+
+.about-scroller-track img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@keyframes scrollBackground {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Scroll half way (the first set of images) */
+    }
+}
+
+.about-section .container {
+    position: relative;
+    z-index: 2;
+}
