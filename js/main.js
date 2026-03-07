@@ -157,6 +157,67 @@ function initAboutCarousel() {
     });
   });
 
+  // --- Touch Swipe Support for Mobile ---
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  wrapper.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay(); // pause while interacting
+    },
+    { passive: true },
+  );
+
+  wrapper.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoplay();
+    },
+    { passive: true },
+  );
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swiped left -> next slide
+      nextSlide();
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      // Swiped right -> prev slide
+      prevSlide();
+    }
+  }
+
+  // --- Auto-advance once when scrolled into view on Mobile ---
+  let hasAutoSwiped = false;
+  const carouselObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (
+          entry.isIntersecting &&
+          window.innerWidth <= 991 &&
+          !hasAutoSwiped
+        ) {
+          hasAutoSwiped = true;
+          // Wait a brief moment after it comes into view, then swipe once to indicate it's a carousel
+          setTimeout(() => {
+            nextSlide();
+            // Stop normal autoplay so user isn't rushed after the initial hint
+            stopAutoplay();
+          }, 1200);
+          carouselObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  ); // trigger when 50% visible
+
+  carouselObserver.observe(section);
+
   // Start initial autoplay
   startAutoplay();
 }

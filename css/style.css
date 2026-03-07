@@ -157,6 +157,27 @@ section {
 }
 
 /* --- Responsive Tweaks --- */
+@media (max-width: 991px) {
+    .navbar {
+        background-color: var(--secondary-color) !important;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    .navbar-collapse {
+        background: var(--secondary-color);
+        padding-top: 40px;
+        padding-bottom: 60px;
+        text-align: center;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        margin-top: 15px;
+    }
+    .navbar-nav .nav-item {
+        margin: 15px 0;
+    }
+    .navbar-nav .nav-link {
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 768px) {
     section { padding: 60px 0; }
     h1.display-3 { font-size: clamp(2rem, 8vw, 3.5rem); }
@@ -287,7 +308,14 @@ section {
     .about-carousel-section { min-height: auto; }
     .about-slide { min-height: auto; flex-direction: column; }
     .about-image-frame { height: 400px; }
-    .about-nav { left: 50%; transform: translateX(-50%); bottom: 20px; }
-    .about-indicators { display: none; }
+    .about-nav { display: none; }
+    .about-indicators {
+        left: 0;
+        bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
     .about-text-content { padding: 40px 20px 80px 20px !important; text-align: center; }
 }
