@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadComponent("imported-root", "components/imported.html");
   await loadComponent("clients-root", "components/clients.html");
   await loadComponent("whychoose-root", "components/whychoose.html");
+  await loadComponent("it-root", "components/it.html");
   await loadComponent("contact-root", "components/contact.html");
   await loadComponent("footer-root", "components/footer.html");
 
@@ -48,11 +49,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // --- Smooth Scroll for Anchor Links ---
+  // --- Smooth Scroll for Anchor Links & Mobile Navbar Close ---
   document.body.addEventListener("click", (e) => {
-    const link = e.target.closest('a[href^="#"]');
+    // Close mobile navbar if a nav-link is clicked
+    const navLink = e.target.closest(".nav-link");
+    if (navLink) {
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+      if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+        if (typeof bootstrap !== "undefined") {
+          const bsCollapse =
+            bootstrap.Collapse.getInstance(navbarCollapse) ||
+            new bootstrap.Collapse(navbarCollapse, { toggle: false });
+          bsCollapse.hide();
+        } else {
+          navbarCollapse.classList.remove("show");
+        }
+      }
+    }
+
+    const link = e.target.closest('a[href^="#"], a[href^="index.html#"]');
     if (!link) return;
-    const target = document.querySelector(link.getAttribute("href"));
+
+    // Extract just the hash part for finding the target
+    const href = link.getAttribute("href");
+    const hashIdx = href.indexOf("#");
+    if (hashIdx === -1) return;
+    const hash = href.substring(hashIdx);
+
+    const target = document.querySelector(hash);
     if (target) {
       e.preventDefault();
       target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -220,4 +244,26 @@ function initAboutCarousel() {
 
   // Start initial autoplay
   startAutoplay();
+}
+
+/**
+ * Handle WhatsApp Form Submission
+ */
+function sendWhatsApp(e) {
+  if (e) e.preventDefault();
+  const nameInput = document.getElementById("contact-name");
+  const phoneInput = document.getElementById("contact-phone");
+  const emailInput = document.getElementById("contact-email");
+  const messageInput = document.getElementById("contact-message");
+
+  const name = nameInput ? nameInput.value : "";
+  const phone = phoneInput ? phoneInput.value : "";
+  const email = emailInput ? emailInput.value : "";
+  const message = messageInput ? messageInput.value : "";
+
+  const waNum = "919566023187";
+  const text = `*New Enquiry from LEED Projects Website*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email || "N/A"}\n*Requirements:* ${message || "N/A"}`;
+
+  const encodedText = encodeURIComponent(text);
+  window.open(`https://wa.me/${waNum}?text=${encodedText}`, "_blank");
 }

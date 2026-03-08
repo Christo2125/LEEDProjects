@@ -4,22 +4,22 @@
       <div class="col-lg-6 col-md-8">
         <div class="p-4 p-md-5" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(8px);">
           <h4 class="font-heading text-white mb-4">Send Us a Message</h4>
-          <form onsubmit="return false">
+          <form onsubmit="sendWhatsApp(event)">
             <div class="mb-3">
               <label class="form-label text-white font-body small opacity-70">Full Name</label>
-              <input type="text" class="form-control contact-input" placeholder="Your Name">
+              <input type="text" id="contact-name" class="form-control contact-input" placeholder="Your Name" required minlength="2">
             </div>
             <div class="mb-3">
               <label class="form-label text-white font-body small opacity-70">Phone Number</label>
-              <input type="tel" class="form-control contact-input" placeholder="+91 XXXXX XXXXX">
+              <input type="tel" id="contact-phone" class="form-control contact-input" placeholder="+91 XXXXX XXXXX" required pattern="[\+0-9\-\s]{10,15}" title="Please enter a valid phone number (10-15 digits)">
             </div>
             <div class="mb-3">
               <label class="form-label text-white font-body small opacity-70">Email Address</label>
-              <input type="email" class="form-control contact-input" placeholder="you@company.com">
+              <input type="email" id="contact-email" class="form-control contact-input" placeholder="you@company.com">
             </div>
             <div class="mb-4">
               <label class="form-label text-white font-body small opacity-70">Project Description</label>
-              <textarea class="form-control contact-input" rows="4" placeholder="Describe your requirements..."></textarea>
+              <textarea id="contact-message" class="form-control contact-input" rows="4" placeholder="Describe your requirements..."></textarea>
             </div>
             <button type="submit" class="btn btn-primary-theme w-100">Schedule a Site Visit</button>
           </form>
