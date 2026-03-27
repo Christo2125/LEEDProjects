@@ -319,3 +319,64 @@ section {
     }
     .about-text-content { padding: 40px 20px 80px 20px !important; text-align: center; }
 }
+
+/* --- Utility: Contain Image for Screenshots --- */
+.img-fit-contain img {
+    object-fit: contain !important;
+    background: #f8f9fa; /* Light background for screenshots */
+}
+.about-slide.active .img-fit-contain img {
+    transform: scale(1) !important; /* Disable zoom effect for UI screenshots */
+}
+
+/* --- Client Section Carousel --- */
+.client-slider-viewport {
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+.client-slider-wrapper {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    gap: 0;
+}
+
+.client-card-item {
+    flex: 0 0 33.333%;
+    padding: 0 12px;
+}
+
+@media (max-width: 991px) {
+    .client-card-item { flex: 0 0 50%; }
+}
+
+@media (max-width: 768px) {
+    .client-card-item { flex: 0 0 100%; }
+}
+
+.client-nav-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.client-nav-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-light);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.client-nav-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}

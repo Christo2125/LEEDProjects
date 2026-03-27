@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadComponent("accessories-root", "components/accessories.html");
   await loadComponent("imported-root", "components/imported.html");
   await loadComponent("clients-root", "components/clients.html");
+  initClientCarousel();
   await loadComponent("whychoose-root", "components/whychoose.html");
   await loadComponent("it-root", "components/it.html");
   await loadComponent("contact-root", "components/contact.html");
@@ -266,4 +267,93 @@ function sendWhatsApp(e) {
 
   const encodedText = encodeURIComponent(text);
   window.open(`https://wa.me/${waNum}?text=${encodedText}`, "_blank");
+}
+
+/**
+ * Clients Section Carousel Logic
+ */
+function initClientCarousel() {
+  const container = document.querySelector("#clients");
+  if (!container) return;
+
+  const wrapper = container.querySelector(".client-slider-wrapper");
+  const items = container.querySelectorAll(".client-card-item");
+  const prevBtn = container.querySelector(".client-prev");
+  const nextBtn = container.querySelector(".client-next");
+  
+  if (!wrapper || items.length === 0 || !prevBtn || !nextBtn) return;
+
+  let currentIndex = 0;
+  
+  function getItemsToShow() {
+    if (window.innerWidth > 991) return 3;
+    if (window.innerWidth > 768) return 2;
+    return 1;
+  }
+
+  function updateSlider() {
+    const itemsToShow = getItemsToShow();
+    const maxIndex = Math.max(0, items.length - itemsToShow);
+    
+    // Clamp currentIndex
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    
+    const offset = currentIndex * (100 / itemsToShow);
+    wrapper.style.transform = `translateX(-${offset}%)`;
+
+    // Update button states
+    prevBtn.style.opacity = currentIndex === 0 ? "0.5" : "1";
+    prevBtn.style.pointerEvents = currentIndex === 0 ? "none" : "auto";
+    
+    nextBtn.style.opacity = currentIndex >= maxIndex ? "0.5" : "1";
+    nextBtn.style.pointerEvents = currentIndex >= maxIndex ? "none" : "auto";
+  }
+
+  nextBtn.addEventListener("click", () => {
+    const itemsToShow = getItemsToShow();
+    if (currentIndex < items.length - itemsToShow) {
+      currentIndex++;
+      updateSlider();
+    }
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  });
+
+  // Handle Window Resize
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateSlider, 250);
+  });
+
+  // Touch Support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  wrapper.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  wrapper.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      nextBtn.click();
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      prevBtn.click();
+    }
+  }
+
+  // Initial call
+  updateSlider();
 }
